@@ -25,12 +25,12 @@ class ViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        navigationItem.leftBarButtonItem = editButtonItem()
-        toolBar.hidden = true
+        navigationItem.leftBarButtonItem = editButtonItem
+        toolBar.isHidden = true
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
         if let indexPath = getIndexPathForSelectedCell() {
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     
     // MARK:- prepareForSegue
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // retrieve selected cell & fruit
         
@@ -52,37 +52,37 @@ class ViewController: UIViewController {
             
             let fruit = dataSource.fruitsInGroup(indexPath.section)[indexPath.row]
             
-            let detailViewController = segue.destinationViewController as! DetailViewController
+            let detailViewController = segue.destination as! DetailViewController
             detailViewController.fruit = fruit
         }
     }
     
     // MARK:- Should Perform Segue
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        return !editing
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        return !isEditing
     }
     
     // MARK:- Selected Cell IndexPath
 
-    func getIndexPathForSelectedCell() -> NSIndexPath? {
+    func getIndexPathForSelectedCell() -> IndexPath? {
         
-        var indexPath:NSIndexPath?
+        var indexPath:IndexPath?
         
-        if collectionView.indexPathsForSelectedItems()!.count > 0 {
-            indexPath = collectionView.indexPathsForSelectedItems()![0] 
+        if collectionView.indexPathsForSelectedItems!.count > 0 {
+            indexPath = collectionView.indexPathsForSelectedItems![0] 
         }
         return indexPath
     }
     
     // MARK:- Highlight
     
-    func highlightCell(indexPath : NSIndexPath, flag: Bool) {
+    func highlightCell(_ indexPath : IndexPath, flag: Bool) {
         
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        let cell = collectionView.cellForItem(at: indexPath)
         
         if flag {
-            cell?.contentView.backgroundColor = UIColor.magentaColor()
+            cell?.contentView.backgroundColor = UIColor.magenta
         } else {
             cell?.contentView.backgroundColor = nil
         }
@@ -90,32 +90,32 @@ class ViewController: UIViewController {
     
     // MARK:- Editing
     
-    override func setEditing(editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView?.allowsMultipleSelection = editing
-        toolBar.hidden = !editing
+        toolBar.isHidden = !editing
     }
     
     // MARK:- Add Cell
     
-    @IBAction func addNewItem(sender: AnyObject) {
+    @IBAction func addNewItem(_ sender: AnyObject) {
         
         let index = dataSource.addAndGetIndexForNewItem()
-        let indexPath = NSIndexPath(forItem: index, inSection: 0)
-        collectionView.insertItemsAtIndexPaths([indexPath])
+        let indexPath = IndexPath(item: index, section: 0)
+        collectionView.insertItems(at: [indexPath])
     }
     
     
-    @IBAction func deleteCells(sender: AnyObject) {
+    @IBAction func deleteCells(_ sender: AnyObject) {
         
         var deletedFruits:[Fruit] = []
         
-        let indexpaths = collectionView?.indexPathsForSelectedItems()
+        let indexpaths = collectionView?.indexPathsForSelectedItems
         
         if let indexpaths = indexpaths {
             
             for item  in indexpaths {
-                collectionView?.deselectItemAtIndexPath((item), animated: true)
+                collectionView?.deselectItem(at: (item), animated: true)
                 // fruits for section
                 let sectionfruits = dataSource.fruitsInGroup(item.section)
                 deletedFruits.append(sectionfruits[item.row])
@@ -123,7 +123,7 @@ class ViewController: UIViewController {
             
             dataSource.deleteItems(deletedFruits)
             
-            collectionView?.deleteItemsAtIndexPaths(indexpaths)
+            collectionView?.deleteItems(at: indexpaths)
         }
     }
 }
@@ -132,31 +132,31 @@ class ViewController: UIViewController {
 
 extension ViewController : UICollectionViewDataSource {
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return dataSource.groups.count
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.numbeOfRowsInEachGroup(section)
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier,forIndexPath:indexPath) as! FruitCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier,for:indexPath) as! FruitCell
         
         let fruits: [Fruit] = dataSource.fruitsInGroup(indexPath.section)
         let fruit = fruits[indexPath.row]
         
         let name = fruit.name!
         
-        cell.imageView.image = UIImage(named: name.lowercaseString)
-        cell.caption.text = name.capitalizedString
+        cell.imageView.image = UIImage(named: name.lowercased())
+        cell.caption.text = name.capitalized
         
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        let headerView: FruitsHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: headerViewIdentifier, forIndexPath: indexPath) as! FruitsHeaderView
+        let headerView: FruitsHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerViewIdentifier, for: indexPath) as! FruitsHeaderView
         
         headerView.sectionLabel.text = dataSource.gettGroupLabelAtIndex(indexPath.section)
         
@@ -168,11 +168,11 @@ extension ViewController : UICollectionViewDataSource {
 
 extension ViewController : UICollectionViewDelegate {
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         highlightCell(indexPath, flag: true)
     }
     
-     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         highlightCell(indexPath, flag: false)
     }
 }
@@ -180,12 +180,12 @@ extension ViewController : UICollectionViewDelegate {
 extension ViewController: UICollectionViewDelegateFlowLayout {
     // MARK:- UICollectioViewDelegateFlowLayout methods
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         // http://stackoverflow.com/questions/28872001/uicollectionview-cell-spacing-based-on-device-sceen-size
         
-        let length = (UIScreen.mainScreen().bounds.width-15)/2
-        return CGSizeMake(length,length);
+        let length = (UIScreen.main.bounds.width-15)/2
+        return CGSize(width: length,height: length);
     }
 }
 
