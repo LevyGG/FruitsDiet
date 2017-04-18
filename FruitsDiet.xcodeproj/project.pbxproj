@@ -89,7 +89,7 @@
 		48F199951B690CC000614BB9 /* FruitsDiet */ = {
 			isa = PBXGroup;
 			children = (
-				48F199B81B6930DA00614BB9 /* App */,
+				F6941A351EA6674C00630B8D /* App */,
 				48F199BE1B6934C800614BB9 /* Model */,
 				48F4015E1B6A3B9300629110 /* View */,
 				48F199BB1B69318900614BB9 /* DataSource */,
@@ -123,14 +123,6 @@
 				48F199AD1B690CC000614BB9 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		48F199B81B6930DA00614BB9 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				48F199981B690CC000614BB9 /* AppDelegate.swift */,
-			);
-			name = App;
 			sourceTree = "<group>";
 		};
 		48F199B91B6930E500614BB9 /* Controller */ = {
@@ -176,6 +168,14 @@
 				48F401611B6A57BB00629110 /* FruitsHeaderView.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		F6941A351EA6674C00630B8D /* App */ = {
+			isa = PBXGroup;
+			children = (
+				48F199981B690CC000614BB9 /* AppDelegate.swift */,
+			);
+			name = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +229,7 @@
 				TargetAttributes = {
 					48F199921B690CC000614BB9 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = VQ9K83TQKF;
 						LastSwiftMigration = 0830;
 					};
 					48F199A71B690CC000614BB9 = {
@@ -422,10 +423,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VQ9K83TQKF;
 				INFOPLIST_FILE = FruitsDiet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rshankar.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rshankar.FruitsDiet.lv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -436,10 +437,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VQ9K83TQKF;
 				INFOPLIST_FILE = FruitsDiet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rshankar.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rshankar.FruitsDiet.lv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
