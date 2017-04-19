@@ -23,18 +23,19 @@ class HomeControlMenu_VC: UIViewController {
         
         collectionView.register(UINib(nibName: "HomeMenuControlCell", bundle: Bundle.main), forCellWithReuseIdentifier: "HomeMenuControlCell_ReuseID")
     
-        
     }
 
     func setupFloatWithSize(size:CGSize){
 
     }
+    
+
 }
+
 
 extension HomeControlMenu_VC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-        
         let length = (self.view.bounds.size.width-15)/6
         return CGSize(width: length,height: length+40);
     }
