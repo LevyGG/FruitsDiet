@@ -10,8 +10,8 @@ import Foundation
 
 class DataSource {
     
-    init() {
-        populateData()
+    init(_ fileName:String) {
+        populateData(fileName)
     }
     
     var fruits:[Fruit] = []
@@ -32,8 +32,8 @@ class DataSource {
     
     // MARK:- Populate Data from plist
     
-    func populateData() {
-        if let path = Bundle.main.path(forResource: "fruits", ofType: "plist") {
+    func populateData(_ fileName:String) {
+        if let path = Bundle.main.path(forResource: fileName, ofType: "plist") {
             if let dictArray = NSArray(contentsOfFile: path) {
                 for item in dictArray {
                     if let dict = item as? NSDictionary {
