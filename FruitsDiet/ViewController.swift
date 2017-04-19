@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var toolBar: UIToolbar!
     
-    let dataSource = DataSource()
+    let dataSource = DataSource("fruits")
     
     override func viewDidLoad() {
         super.viewDidLoad()
